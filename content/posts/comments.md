@@ -1,6 +1,6 @@
 +++
 date = '2026-07-26T14:55:36+08:00'
-draft = true
+draft = false
 title = '乐评影评杂谈'
 tags = ['电影', '音乐', '乐评', '影评']
 categories = ['杂谈']
