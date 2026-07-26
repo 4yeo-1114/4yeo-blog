@@ -20,16 +20,13 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.15;
+  opacity: 0.25;
   pointer-events: none;
+  display: none;
 }
 
 body.bg-image .bg-image-layer {
   display: block;
-}
-
-body:not(.bg-image) .bg-image-layer {
-  display: none;
 }
 
 /* ---- 背景切换按钮 ---- */
