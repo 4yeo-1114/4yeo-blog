@@ -1,4 +1,4 @@
-/* 粒子背景 */
+/* ---- 粒子背景 ---- */
 #particles-bg {
   position: fixed;
   top: 0;
@@ -9,7 +9,57 @@
   pointer-events: none;
 }
 
-/* 首页信息区加毛玻璃效果，让文字更清晰 */
+/* ---- 自定义图片背景层 ---- */
+.bg-image-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+body.bg-image .bg-image-layer {
+  display: block;
+}
+
+body:not(.bg-image) .bg-image-layer {
+  display: none;
+}
+
+/* ---- 背景切换按钮 ---- */
+#bg-switcher {
+  position: fixed;
+  bottom: 36px;
+  right: 24px;
+  z-index: 999;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--theme);
+  color: var(--primary);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
+  transition: opacity 0.2s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#bg-switcher:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* ---- 首页信息区 ---- */
 .home-info {
   position: relative;
   background: var(--theme) !important;
@@ -17,7 +67,7 @@
   padding: 20px 24px !important;
 }
 
-/* 文章卡片加微透明背景 */
+/* ---- 文章卡片 ---- */
 .post-entry {
   background: var(--theme);
   border-radius: 8px;
@@ -28,5 +78,5 @@
 
 .post-entry:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }

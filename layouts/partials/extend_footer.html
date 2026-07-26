@@ -1,3 +1,12 @@
 <!-- 粒子背景 -->
 <canvas id="particles-bg"></canvas>
+
+<!-- 背景切换器 -->
+<script src="{{ "js/theme-bg.js" | relURL }}"></script>
+
+{{ if .Site.Params.bgImage }}
+<!-- 自定义背景图 -->
+<div class="bg-image-layer" style="background-image: url('{{ .Site.Params.bgImage | relURL }}');"></div>
+{{ end }}
+
 <script src="{{ "js/particles.js" | relURL }}"></script>

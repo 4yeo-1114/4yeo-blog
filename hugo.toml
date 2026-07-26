@@ -54,3 +54,6 @@ theme = 'PaperMod'
 
   # 日期格式（PaperMod 要求字符串格式）
   DateFormat = '2006-01-02'
+
+  # 自定义背景图片（点击右下角按钮切换到此模式）
+  bgImage = '/images/bg-graduation.jpg'
