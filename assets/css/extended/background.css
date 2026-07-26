@@ -14,14 +14,14 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   z-index: -1;
-  background-size: contain;
-  background-position: center;
+  background-size: cover;
+  background-position: center center;
   background-repeat: no-repeat;
-  background-color: var(--theme);
-  opacity: 0.35;
+  background-attachment: fixed;
+  opacity: 0.3;
   pointer-events: none;
   display: none;
 }
@@ -30,12 +30,21 @@ body.bg-image .bg-image-layer {
   display: block;
 }
 
+/* ---- 让页面底色透明，粒子才能透出来 ---- */
+body {
+  background: transparent !important;
+}
+
+.main {
+  background: transparent !important;
+}
+
 /* ---- 背景切换按钮 ---- */
 #bg-switcher {
   position: fixed;
   bottom: 36px;
   right: 24px;
-  z-index: 999;
+  z-index: 9999;
   width: 40px;
   height: 40px;
   border: 1px solid var(--border);
@@ -58,13 +67,15 @@ body.bg-image .bg-image-layer {
 }
 
 /* ---- 首页和文章卡片半透明 ---- */
+.home-info,
 .post-entry {
-  background: color-mix(in srgb, var(--theme) 75%, transparent) !important;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.78) !important;
+  border-radius: 12px;
   padding: 16px 20px;
   margin-bottom: 8px;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .post-entry:hover {
@@ -72,9 +83,8 @@ body.bg-image .bg-image-layer {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-.home-info {
-  background: color-mix(in srgb, var(--theme) 75%, transparent) !important;
-  border-radius: 12px;
-  padding: 20px 24px !important;
-  backdrop-filter: blur(4px);
+/* 暗色模式下卡片也半透明 */
+[data-theme="dark"] .home-info,
+[data-theme="dark"] .post-entry {
+  background: rgba(30, 30, 30, 0.78) !important;
 }
