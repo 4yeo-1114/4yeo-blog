@@ -1,5 +1,5 @@
 # ===== 基础设置 =====
-baseURL = 'https://4yeo.pages.dev/'
+baseURL = 'https://4yeo-blog.3561203756.workers.dev/'
 locale = 'zh-cn'
 title = '4yeo'
 theme = 'PaperMod'
