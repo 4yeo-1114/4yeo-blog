@@ -1,90 +1,339 @@
-/* ---- 粒子背景 ---- */
-#particles-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
+/* Site background polish for PaperMod. */
+:root {
+  --page-bg-a: #f7f5ef;
+  --page-bg-b: #e9f0ed;
+  --page-bg-c: #f2e9df;
+  --glass-bg: rgba(255, 255, 255, 0.74);
+  --glass-strong: rgba(255, 255, 255, 0.86);
+  --glass-border: rgba(36, 39, 44, 0.1);
+  --glass-shadow: 0 18px 55px rgba(35, 32, 27, 0.08);
+  --particle-dot: rgba(37, 50, 58, 0.32);
+  --particle-line: rgba(37, 50, 58, 0.055);
+  --switcher-bg: rgba(255, 255, 255, 0.82);
+  --switcher-fg: #273039;
 }
 
-/* ---- 自定义图片背景层 ---- */
-.bg-image-layer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  opacity: 0.3;
-  pointer-events: none;
-  display: none;
+[data-theme="dark"] {
+  --page-bg-a: #111315;
+  --page-bg-b: #17211e;
+  --page-bg-c: #211a17;
+  --glass-bg: rgba(24, 26, 28, 0.72);
+  --glass-strong: rgba(29, 31, 34, 0.86);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 18px 55px rgba(0, 0, 0, 0.24);
+  --particle-dot: rgba(221, 229, 232, 0.32);
+  --particle-line: rgba(221, 229, 232, 0.06);
+  --switcher-bg: rgba(30, 32, 35, 0.84);
+  --switcher-fg: #eef1f3;
 }
 
-body.bg-image .bg-image-layer {
-  display: block;
+html {
+  min-height: 100%;
+  background:
+    radial-gradient(circle at 16% 8%, rgba(184, 214, 204, 0.55), transparent 30rem),
+    radial-gradient(circle at 88% 12%, rgba(230, 195, 164, 0.38), transparent 28rem),
+    linear-gradient(145deg, var(--page-bg-a), var(--page-bg-b) 52%, var(--page-bg-c));
 }
 
-/* ---- 让页面底色透明，粒子才能透出来 ---- */
 body {
+  min-height: 100vh;
   background: transparent !important;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  content: "";
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.2)),
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.45), transparent 34rem);
+}
+
+[data-theme="dark"] body::before {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.38)),
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.04), transparent 32rem);
 }
 
 .main {
   background: transparent !important;
 }
 
-/* ---- 背景切换按钮 ---- */
-#bg-switcher {
+#particles-bg {
   position: fixed;
-  bottom: 36px;
-  right: 24px;
-  z-index: 9999;
-  width: 40px;
-  height: 40px;
-  border: 1px solid var(--border);
-  border-radius: 50%;
-  background: var(--theme);
-  color: var(--primary);
-  font-size: 18px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0.5;
-  transition: opacity 0.2s, transform 0.2s;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.72;
 }
 
-#bg-switcher:hover {
+body.bg-mode-plain #particles-bg,
+body.bg-mode-image #particles-bg {
+  opacity: 0;
+}
+
+.bg-image-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  display: block;
+  pointer-events: none;
+  background-position: center 42%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0;
+  filter: saturate(0.84) contrast(0.92);
+  transform: scale(1.02);
+  transition: opacity 220ms ease;
+}
+
+.bg-image-layer::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    linear-gradient(90deg, rgba(247, 245, 239, 0.92), rgba(247, 245, 239, 0.64) 46%, rgba(247, 245, 239, 0.88)),
+    linear-gradient(180deg, rgba(247, 245, 239, 0.58), rgba(247, 245, 239, 0.92));
+}
+
+body.bg-mode-image .bg-image-layer {
   opacity: 1;
-  transform: scale(1.1);
 }
 
-/* ---- 首页和文章卡片半透明 ---- */
+[data-theme="dark"] .bg-image-layer {
+  filter: saturate(0.72) contrast(0.9) brightness(0.58);
+}
+
+[data-theme="dark"] .bg-image-layer::after {
+  background:
+    linear-gradient(90deg, rgba(17, 19, 21, 0.93), rgba(17, 19, 21, 0.58) 48%, rgba(17, 19, 21, 0.9)),
+    linear-gradient(180deg, rgba(17, 19, 21, 0.56), rgba(17, 19, 21, 0.95));
+}
+
+.top-link,
+#theme-toggle,
+#bg-switcher {
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.header {
+  background: transparent;
+}
+
+.header-nav {
+  margin-top: 12px;
+  padding: 8px 14px;
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  background: var(--glass-bg);
+  box-shadow: 0 10px 35px rgba(30, 33, 36, 0.06);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.logo a,
+#menu a {
+  border-radius: 6px;
+}
+
+#menu a {
+  padding: 6px 10px;
+}
+
+#menu a:hover {
+  background: rgba(120, 130, 120, 0.11);
+}
+
 .home-info,
+.post-entry,
+.post-single,
+.archive-entry,
+.terms-tags a {
+  border: 1px solid var(--glass-border) !important;
+  background: var(--glass-bg) !important;
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.home-info,
+.post-entry,
+.post-single {
+  border-radius: 8px;
+}
+
+.home-info {
+  padding: 28px 30px;
+}
+
 .post-entry {
-  background: rgba(255, 255, 255, 0.78) !important;
-  border-radius: 12px;
-  padding: 16px 20px;
-  margin-bottom: 8px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  margin-bottom: 14px;
+  padding: 22px 24px;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
 }
 
 .post-entry:hover {
+  border-color: rgba(68, 83, 86, 0.2) !important;
+  background: var(--glass-strong) !important;
+  box-shadow: 0 22px 60px rgba(35, 32, 27, 0.11);
   transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* 暗色模式下卡片也半透明 */
-[data-theme="dark"] .home-info,
-[data-theme="dark"] .post-entry {
-  background: rgba(30, 30, 30, 0.78) !important;
+[data-theme="dark"] .post-entry:hover {
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.34);
 }
+
+.post-single {
+  padding: 28px 30px;
+}
+
+.post-content pre,
+.post-content .highlight {
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+}
+
+#bg-switcher {
+  position: fixed;
+  right: 22px;
+  bottom: 82px;
+  z-index: 9999;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  color: var(--switcher-fg);
+  cursor: pointer;
+  background: var(--switcher-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 50%;
+  box-shadow: 0 12px 34px rgba(28, 31, 34, 0.14);
+  opacity: 0.78;
+  place-items: center;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+
+#bg-switcher:hover,
+#bg-switcher:focus-visible {
+  opacity: 1;
+  box-shadow: 0 16px 42px rgba(28, 31, 34, 0.19);
+  transform: translateY(-1px);
+}
+
+#bg-switcher:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+.bg-switcher__glyph {
+  position: relative;
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+.bg-switcher__glyph::before,
+.bg-switcher__glyph::after {
+  position: absolute;
+  content: "";
+}
+
+body.bg-mode-particles .bg-switcher__glyph,
+body:not(.bg-mode-plain):not(.bg-mode-image) .bg-switcher__glyph {
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  box-shadow:
+    -6px -4px 0 -2px currentColor,
+    6px 5px 0 -2px currentColor;
+}
+
+body.bg-mode-particles .bg-switcher__glyph::before,
+body:not(.bg-mode-plain):not(.bg-mode-image) .bg-switcher__glyph::before {
+  top: 7px;
+  left: -5px;
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.45;
+  transform: rotate(24deg);
+}
+
+body.bg-mode-plain .bg-switcher__glyph {
+  border: 2px solid currentColor;
+  border-radius: 5px;
+}
+
+body.bg-mode-plain .bg-switcher__glyph::before {
+  inset: 4px;
+  background: currentColor;
+  border-radius: 2px;
+  opacity: 0.2;
+}
+
+body.bg-mode-image .bg-switcher__glyph {
+  border: 2px solid currentColor;
+  border-radius: 5px;
+}
+
+body.bg-mode-image .bg-switcher__glyph::before {
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+  height: 8px;
+  background: currentColor;
+  clip-path: polygon(0 100%, 36% 40%, 56% 68%, 75% 24%, 100% 100%);
+  opacity: 0.82;
+}
+
+body.bg-mode-image .bg-switcher__glyph::after {
+  top: 3px;
+  right: 3px;
+  width: 4px;
+  height: 4px;
+  background: currentColor;
+  border-radius: 50%;
+  opacity: 0.75;
+}
+
+@media (max-width: 768px) {
+  .header-nav {
+    margin-top: 8px;
+    padding: 8px 10px;
+  }
+
+  .home-info,
+  .post-entry,
+  .post-single {
+    padding: 20px;
+  }
+
+  #bg-switcher {
+    right: 16px;
+    bottom: 76px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #particles-bg {
+    display: none;
+  }
+
+  .post-entry,
+  #bg-switcher,
+  .bg-image-layer {
+    transition: none;
+  }
+}
+

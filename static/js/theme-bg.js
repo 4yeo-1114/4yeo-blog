@@ -1,55 +1,63 @@
-// 背景模式管理器
 (function () {
   const STORAGE_KEY = '4yeo-bg-mode';
-  const MODES = ['particles', 'plain', 'image'];
-  const MODE_LABELS = { particles: '粒子', plain: '纯色', image: '图片' };
-  const MODE_ICONS = { particles: '✦', plain: '◻', image: '🖼' };
+  const MODES = ['particles', 'image', 'plain'];
+  const LABELS = {
+    particles: 'particle background',
+    image: 'graduation image background',
+    plain: 'clean background',
+  };
 
-  let currentMode = localStorage.getItem(STORAGE_KEY) || 'particles';
-
-  // 创建切换按钮
-  const btn = document.createElement('button');
-  btn.id = 'bg-switcher';
-  btn.title = '切换背景';
-  btn.innerHTML = MODE_ICONS[currentMode];
-  btn.setAttribute('aria-label', '切换背景模式');
-  document.body.appendChild(btn);
-
-  // 更新粒子可见性
-  function updateParticles(show) {
-    const canvas = document.getElementById('particles-bg');
-    if (canvas) {
-      canvas.style.display = show ? 'block' : 'none';
+  function readMode() {
+    try {
+      const stored = window.localStorage.getItem(STORAGE_KEY);
+      return MODES.includes(stored) ? stored : 'particles';
+    } catch (_) {
+      return 'particles';
     }
   }
 
-  // 更新图片背景
-  function updateImageBg(show) {
-    if (show) {
-      document.body.classList.add('bg-image');
-    } else {
-      document.body.classList.remove('bg-image');
+  function saveMode(mode) {
+    try {
+      window.localStorage.setItem(STORAGE_KEY, mode);
+    } catch (_) {
+      // Private browsing can block localStorage; the UI still works for the session.
     }
   }
 
-  // 应用模式
-  function applyMode(mode) {
-    currentMode = mode;
-    localStorage.setItem(STORAGE_KEY, mode);
-    btn.innerHTML = MODE_ICONS[mode];
-    btn.title = '背景：' + MODE_LABELS[mode] + '（点击切换）';
+  function setMode(mode, button) {
+    document.body.classList.remove('bg-mode-particles', 'bg-mode-image', 'bg-mode-plain');
+    document.body.classList.add(`bg-mode-${mode}`);
+    document.body.classList.toggle('bg-image', mode === 'image');
 
-    updateParticles(mode === 'particles');
-    updateImageBg(mode === 'image');
+    if (button) {
+      button.dataset.mode = mode;
+      button.title = `Background: ${LABELS[mode]}. Click to switch.`;
+      button.setAttribute('aria-label', `Switch background. Current mode: ${LABELS[mode]}.`);
+    }
+
+    saveMode(mode);
   }
 
-  // 点击切换
-  btn.addEventListener('click', () => {
-    const idx = MODES.indexOf(currentMode);
-    const next = MODES[(idx + 1) % MODES.length];
-    applyMode(next);
-  });
+  function init() {
+    const button = document.createElement('button');
+    button.id = 'bg-switcher';
+    button.type = 'button';
+    button.innerHTML = '<span class="bg-switcher__glyph" aria-hidden="true"></span>';
+    document.body.appendChild(button);
 
-  // 初始应用
-  applyMode(currentMode);
+    let currentMode = readMode();
+    setMode(currentMode, button);
+
+    button.addEventListener('click', () => {
+      const nextIndex = (MODES.indexOf(currentMode) + 1) % MODES.length;
+      currentMode = MODES[nextIndex];
+      setMode(currentMode, button);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else {
+    init();
+  }
 })();

@@ -1,4 +1,5 @@
-<canvas id="particles-bg"></canvas>
-<script src="{{ "js/theme-bg.js" | relURL }}"></script>
-<div class="bg-image-layer" style="background-image: url('/images/bg-graduation.jpg');"></div>
-<script src="{{ "js/particles.js" | relURL }}"></script>
+{{ $bgImage := site.Params.bgImage | default "/images/bg-graduation.jpg" }}
+<div class="bg-image-layer" style="background-image: url('{{ $bgImage | relURL }}');"></div>
+<canvas id="particles-bg" aria-hidden="true"></canvas>
+<script src="{{ "js/particles.js" | relURL }}" defer></script>
+<script src="{{ "js/theme-bg.js" | relURL }}" defer></script>
