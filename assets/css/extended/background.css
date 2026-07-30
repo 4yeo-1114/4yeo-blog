@@ -3,8 +3,8 @@
   --page-bg-a: #f7f5ef;
   --page-bg-b: #e9f0ed;
   --page-bg-c: #f2e9df;
-  --glass-bg: rgba(255, 255, 255, 0.74);
-  --glass-strong: rgba(255, 255, 255, 0.86);
+  --glass-bg: rgba(255, 255, 255, 0.68);
+  --glass-strong: rgba(255, 255, 255, 0.8);
   --glass-border: rgba(36, 39, 44, 0.1);
   --glass-shadow: 0 18px 55px rgba(35, 32, 27, 0.08);
   --particle-dot: rgba(37, 50, 58, 0.32);
@@ -86,7 +86,7 @@ body.bg-mode-image #particles-bg {
   background-repeat: no-repeat;
   background-size: cover;
   opacity: 0;
-  filter: saturate(0.84) contrast(0.92);
+  filter: saturate(1.02) contrast(0.98);
   transform: scale(1.02);
   transition: opacity 220ms ease;
 }
@@ -96,8 +96,8 @@ body.bg-mode-image #particles-bg {
   inset: 0;
   content: "";
   background:
-    linear-gradient(90deg, rgba(247, 245, 239, 0.92), rgba(247, 245, 239, 0.64) 46%, rgba(247, 245, 239, 0.88)),
-    linear-gradient(180deg, rgba(247, 245, 239, 0.58), rgba(247, 245, 239, 0.92));
+    linear-gradient(90deg, rgba(247, 245, 239, 0.72), rgba(247, 245, 239, 0.28) 46%, rgba(247, 245, 239, 0.66)),
+    linear-gradient(180deg, rgba(247, 245, 239, 0.22), rgba(247, 245, 239, 0.68));
 }
 
 body.bg-mode-image .bg-image-layer {
@@ -105,13 +105,13 @@ body.bg-mode-image .bg-image-layer {
 }
 
 [data-theme="dark"] .bg-image-layer {
-  filter: saturate(0.72) contrast(0.9) brightness(0.58);
+  filter: saturate(0.86) contrast(0.94) brightness(0.72);
 }
 
 [data-theme="dark"] .bg-image-layer::after {
   background:
-    linear-gradient(90deg, rgba(17, 19, 21, 0.93), rgba(17, 19, 21, 0.58) 48%, rgba(17, 19, 21, 0.9)),
-    linear-gradient(180deg, rgba(17, 19, 21, 0.56), rgba(17, 19, 21, 0.95));
+    linear-gradient(90deg, rgba(17, 19, 21, 0.78), rgba(17, 19, 21, 0.34) 48%, rgba(17, 19, 21, 0.72)),
+    linear-gradient(180deg, rgba(17, 19, 21, 0.28), rgba(17, 19, 21, 0.76));
 }
 
 .top-link,
